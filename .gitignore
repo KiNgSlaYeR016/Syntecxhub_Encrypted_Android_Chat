@@ -1,8 +1,10 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
-*$py.class
-
+*.pyc
+.venv/
+device_key.bin
+message_history.json
+chat_app.log
 # C extensions
 *.so
 
