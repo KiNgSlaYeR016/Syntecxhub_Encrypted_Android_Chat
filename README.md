@@ -9,7 +9,7 @@ The original task asked for a native Android app. This submission is a desktop p
 A single-user chat interface where every message is encrypted locally with AES-GCM before being "sent" (simulated by immediately decrypting it back and displaying it). Shows the actual encrypted packet on screen so the encryption step is visibly proven, not just assumed. Message history persists between runs.
 
 ## Features
-- AES-GCM encryption (authenticated encryption — detects tampering, not just confidentiality)
+- AES-GCM encryption (authenticated encryption - detects tampering, not just confidentiality)
 - A unique nonce generated for every message (GCM's equivalent of an IV)
 - Local encrypt/decrypt round trip, with the encrypted packet shown in the UI
 - Basic GUI built with Tkinter - message display, input box, send button
@@ -34,7 +34,7 @@ python encrypted_chat_gui.py
 ```
 
 ## Security considerations
-- **Key storage — the main gap vs. a real Android app.** This prototype stores the AES key in a plain local file (`device_key.bin`) for simplicity. A real Android implementation should instead use the **Android Keystore system**, which generates and holds the key inside secure hardware (when available) - the raw key bytes are never exposed to the app or extractable from the device, even with root access in many cases. Storing a key in a plain file, as this prototype does, would be considered insecure in a production mobile app, since anyone with access to the device's file system could copy the key out directly.
+- **Key storage - the main gap vs. a real Android app.** This prototype stores the AES key in a plain local file (`device_key.bin`) for simplicity. A real Android implementation should instead use the **Android Keystore system**, which generates and holds the key inside secure hardware (when available) - the raw key bytes are never exposed to the app or extractable from the device, even with root access in many cases. Storing a key in a plain file, as this prototype does, would be considered insecure in a production mobile app, since anyone with access to the device's file system could copy the key out directly.
 - **AES-GCM was chosen over AES-CBC** specifically because GCM provides built-in authentication - it detects if ciphertext has been tampered with, not just encrypts it. This matches what a real Android Keystore-based implementation would typically use.
 - **Nonce/IV reuse** is avoided by generating a new random nonce per message, consistent with the Week 2 Project 1 requirement around safe IV usage.
 - This is a **single-device, single-user simulation** - there's no real network transmission or second party involved, so it doesn't demonstrate interception resistance, only the encryption mechanics themselves.
